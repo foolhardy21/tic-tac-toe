@@ -7,6 +7,20 @@ let turn = true
 function getValue() {
     return (turn) ? 'x' : 'o'
 }
+function checkWinner(row,col) {
+    
+    if( ( ( gameBoard[row][0] === gameBoard[row][1] ) &&
+            ( gameBoard[row][1] === gameBoard[row][2] ) ) || 
+        ( ( gameBoard[0][col] === gameBoard[1][col] ) && 
+            ( gameBoard[1][col] === gameBoard[2][col] ) ) ) {
+            return true
+        }
+    else return false
+
+    
+
+    
+}
 const board = document.querySelector('.grid-board')
 
 for(let i = 0; i < 3; i++) {
@@ -32,7 +46,13 @@ board.addEventListener('click',(e) => {
         gameBoard[row][col] = getValue()
         turn = !turn
         targetDiv.innerText = gameBoard[row][col]
+
+        const winner = checkWinner(row,col)
         
+        if(winner) {
+            console.log(targetDiv.innerText)
+            board.style.display = 'none'
+        }
     }
 })
 
